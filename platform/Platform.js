@@ -1,4 +1,6 @@
 import Application from '../application/Application.js'
+import AssettManager from './AssettManager.js';
+import Display from './Display.js';
 import InputHandler from "./inputHandler.js";
 
 export default class Platform {
@@ -9,13 +11,35 @@ export default class Platform {
         Platform.initialised = true;
         this.inputHandler = new InputHandler()
         this.application = new Application()
+        this.display = new Display();
+        this.assettManager = new AssettManager()
+        this.assettManager.load('baron')
+        this.lastTime = 0;
+        this.isRunning = true;
+        this.fps = document.getElementById('fps')
+        this.init();
     }
-    update() {
-        this.inputHandler.update()
-        this.application.update()
-        //app, gamepad
+    tick(timeStamp) {
+        let dt = timeStamp - this.lastTime;
+        this.lastTime = timeStamp;
+        this.update(dt);
+        this.render();
+        this.fps.innerText = `FPS: ${(1000 / dt).toFixed(0)}`
+        if(this.isRunning) {
+            window.requestAnimationFrame(this.tick.bind(this))
+        } else {
+            console.log('bye')
+        }
+    }
+    update(dt) {
+        this.assettManager.update()
+        this.inputHandler.update(dt)
+        this.application.update(dt)
+        this.isRunning = !this.application.quit;
     }
     render() {
-        //objs from app
+    }
+    init() {
+        window.requestAnimationFrame(this.tick.bind(this))
     }
 }

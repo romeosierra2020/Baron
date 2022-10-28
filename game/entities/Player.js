@@ -1,11 +1,16 @@
-import Model from "../components/Model.js";
-import SpriteManager from "../components/SpriteManager.js";
-import Transform from "../components/Transform.js";
 
-export default class Player {
+import Intent from "../components/Intent.js";
+import Entity from "./Entity.js";
+
+export default class Player extends Entity {
     constructor() {
-        this.transform = new Transform();
-        this.model = new Model();
-        this.spriteManager = new SpriteManager();
+        super();
+        this.action = "idle";
+        this.direction = "down";
+        this.intent = new Intent();
+        this.controller = 'player'
+        this.speed = 20;
+        this.transform.scale = {x: 2, y: 2}
     }
+
 }

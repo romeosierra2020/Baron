@@ -1,9 +1,9 @@
 import Vec2 from "../../application/dataStructures/Vec2.js";
 
 export default class Transform{
-    constructor() {
-        this.position = new Vec2();
-        this.rotation = 0;
-        this.scale = new Vec2(1,1)
+    constructor(position = new Vec2(), rotation = 0, scale = new Vec2(1,1)) {
+        this.position = {...position};
+        this.rotation = rotation;
+        this.scale = {...scale}
     }
 }

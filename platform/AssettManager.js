@@ -25,6 +25,7 @@ export default class AssettManager{
         }
         if(assettsLoaded === assetts.length) {
             this.allAssettsLoaded = true;
+
         }
     }
 }
